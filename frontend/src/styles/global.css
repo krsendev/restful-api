@@ -864,6 +864,32 @@ a:hover {
   flex-shrink: 0;
 }
 
+/* ===== Auth Error & Hints ===== */
+.auth-card__error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  font-size: var(--font-size-sm);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  text-align: center;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.form-group__hint {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  margin-top: -2px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .auth-card {
