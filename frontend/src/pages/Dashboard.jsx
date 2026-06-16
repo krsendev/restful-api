@@ -16,6 +16,8 @@ function Dashboard() {
   const [title, setTitle] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [editDescription, setEditDescription] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,10 +52,12 @@ function Dashboard() {
     try {
       await createTask(token, {
         title,
+        description,
       });
       const updatedTasks = await getTasks(token);
       setTasks(updatedTasks.data);
       setTitle("");
+      setDescription("");
     } catch (error) {
       console.error(error);
     }
@@ -82,12 +86,14 @@ function Dashboard() {
   const handleEditClick = (task) => {
     setEditingId(task.id);
     setEditTitle(task.title);
+    setEditDescription(task.description || "");
   };
 
   const handleSaveEdit = async () => {
     try {
       const updated = await updateTask(token, editingId, {
         title: editTitle,
+        description: editDescription,
       });
 
       setTasks(
@@ -116,6 +122,12 @@ function Dashboard() {
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => handleToggleTask(task)}
+            />
+
             {editingId === task.id ? (
               <>
                 <input
@@ -123,11 +135,21 @@ function Dashboard() {
                   onChange={(e) => setEditTitle(e.target.value)}
                 />
 
+                <textarea
+                  placeholder="Description"
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                />
+
                 <button onClick={handleSaveEdit}>Save</button>
               </>
             ) : (
               <>
-                {task.title}
+                <div>
+                  <strong>{task.title}</strong>
+                </div>
+
+                <div>{task.description}</div>
 
                 <button onClick={() => handleEditClick(task)}>Edit</button>
               </>
@@ -143,6 +165,11 @@ function Dashboard() {
         placeholder="Task title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+      />
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       />
       <button onClick={handleCreateTask}>Add Task</button>
     </div>
