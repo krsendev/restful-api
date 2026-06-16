@@ -386,6 +386,6 @@ This project demonstrates the implementation of:
 
 ## 👤 Author
 
-**Krisna**
+**Krisna Guntur Pamungkas | 241080200051**
 
 TaskFlow was developed as a Fullstack RESTful API project for learning modern web application development using React, Express.js, JWT Authentication, and Supabase PostgreSQL.
